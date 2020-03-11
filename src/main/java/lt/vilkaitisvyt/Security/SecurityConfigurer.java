@@ -33,7 +33,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().disable();
+//		http.headers().frameOptions().disable();
 		http.csrf().disable();
 		http.authorizeRequests()
 							.antMatchers("/authenticate").permitAll()
@@ -41,16 +41,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 							.antMatchers("/").permitAll()
 							.antMatchers("/registrationPage").permitAll()
 							.antMatchers("/register").permitAll()
-							.antMatchers("/h2-console/**").permitAll()
+//							.antMatchers("/h2-console/**").permitAll()
 							.antMatchers("/css/**").permitAll()
 							.antMatchers("/img/**").permitAll()	
-							.antMatchers("/favicon.ico").permitAll()	
+//							.antMatchers("/favicon.ico").permitAll()
 							.anyRequest().authenticated()
-//							.and().formLogin().loginPage("/login")
-//							.defaultSuccessUrl("/", true)
-//							.loginProcessingUrl("/authenticate")
-//							.failureHandler(authenticationFailureHandler())
-//							.permitAll()
 							.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
@@ -65,16 +60,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-//	@Bean
-//	public AuthenticationFailureHandler authenticationFailureHandler() {		
-//	    ExceptionMappingAuthenticationFailureHandler failureHandler = new ExceptionMappingAuthenticationFailureHandler();	    
-//	    Map<String, String> failureUrlMap = new HashMap<>();	    
-//	    failureUrlMap.put(ExpiredJwtException.class.getName(), "/");
-//	    failureUrlMap.put(UsernameNotFoundException.class.getName(), "/");
-//	    failureHandler.setExceptionMappings(failureUrlMap);
-//	    return failureHandler;
-//	}
 	
 	@Bean
 	public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
