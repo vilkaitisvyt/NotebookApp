@@ -1,26 +1,24 @@
 package lt.vilkaitisvyt.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import lt.vilkaitisvyt.Model.AuthenticationRequest;
 import lt.vilkaitisvyt.Model.AuthenticationResponse;
 import lt.vilkaitisvyt.Model.MyUser;
 import lt.vilkaitisvyt.Model.RegistrationRequest;
+import lt.vilkaitisvyt.Model.RegistrationResponse;
 import lt.vilkaitisvyt.Service.MyUserDetailsService;
 import lt.vilkaitisvyt.Util.JwtUtil;
 
-@RestController
-public class RestResources {
+@Controller
+public class UserResources {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -32,37 +30,47 @@ public class RestResources {
 	private JwtUtil jwtTokenUtil;
 	
 	
-	@GetMapping({"/hello"})
-	public String hello() {
-		return "Hello World";
+	@GetMapping("/login")
+	public String loginPage() {
+		return "LoginForm";
 	}
 	
-	@PostMapping({"/register"})
-	public ResponseEntity<?> register(@RequestBody RegistrationRequest registrationRequest) throws Exception {
+	@GetMapping("/registrationPage")
+	public String registrationPage() {
+		return "RegistrationForm";
+	}
+	
+	@PostMapping("/register")
+	public ResponseEntity<?> register(RegistrationRequest registrationRequest) throws Exception {
 		MyUser user = userDetailsService.createUser(registrationRequest);
 		if (user != null) {
-			return new ResponseEntity<>(HttpStatus.CREATED);
+			return ResponseEntity.ok(new RegistrationResponse(""));
 		} else {
-			return ResponseEntity.badRequest().body("Duplicate username");
+			return ResponseEntity.ok(new RegistrationResponse("Username already exists"));
 		}
 	}
 	
-	@PostMapping(value = "/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	@PostMapping("/authenticate")
+	public ResponseEntity<?> createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
 			);
-		}catch(BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
-			}
+			
+		} catch(BadCredentialsException e) {
+			System.out.println("Bad credentials");
+			final String jwt = "";
+			String message = "Incorrect username or password";
+			
+			return ResponseEntity.ok(new AuthenticationResponse(jwt, message));
+		}
 		
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 		
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		String message = "Authentication successful";
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt, message));
 	}
-
 }

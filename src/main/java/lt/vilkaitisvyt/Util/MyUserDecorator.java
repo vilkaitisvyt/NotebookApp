@@ -10,7 +10,8 @@ import lt.vilkaitisvyt.Model.MyUser;
 
 public class MyUserDecorator implements UserDetails {
 	
-	private MyUser user;	
+	private static final long serialVersionUID = 1L;
+	private MyUser user;
 	
 
 	public MyUserDecorator(MyUser user) {

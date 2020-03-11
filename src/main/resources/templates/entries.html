@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<nav class="navbar navbar-expand navbar-dark navbar-custom fixed-top">
+
+  <div class="container">
+
+      <a class="navbar-brand" href="#" >Notebook</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+
+          <span class="navbar-toggler-icon"></span>
+
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+
+          <ul class="navbar-nav ml-auto">
+
+              <li class="nav-item">
+
+                  <a class="nav-link faa-pulse animated-hover" href="#" onclick="logout()" >Log out</a>
+
+              </li>
+
+          </ul>
+
+      </div>
+
+  </div>
+
+</nav>
+
+<header id="header">
+
+      <div class="row">
+
+          <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+
+              <table class="table table-hover table-responsive">
+
+                  <thead class="thead-custom" >
+
+                    <tr >
+
+                      <th class="col-md-4" scope="col">Entry</th>
+
+                      <th scope="col">Edit</th>
+
+                      <th scope="col">Del</th>
+
+                    </tr>
+
+                  </thead>
+
+                  <tbody>
+
+                    <tr class="table-warning trow-custom" th:each="entry : ${entries}">
+
+                      <th style="display:none;" scope="row" th:text=${entry.id}></th>
+
+                      <td class="col-md-4" th:text=${entry.entryItem}></td>
+
+                      <td >
+
+                        <form >
+
+                            <i type="submit" data-toggle="modal" data-target="#editModal" class="fa fa-pencil-square-o faa-pulse animated-hover"
+                              th:data-id="${entry.id}" 
+                              th:data-entry="${entry.entryItem}" 
+                              onclick="editEntry(this.getAttribute('data-id'), this.getAttribute('data-entry'));" ></i>
+
+                        </form>
+
+                      </td>
+
+                      <td >
+
+                        <form > 
+
+                            <i type="submit" class="fa fa-trash-o faa-pulse animated-hover"
+                              th:data-id="${entry.id}" onclick="deleteEntry(this.getAttribute('data-id'));" ></i>
+
+                        </form>
+
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+                <div class="d-flex justify-content-center">
+
+                    <button class="btn btn-dark btn-cstm" data-toggle="modal" data-target="#viewModal">New Entry</button>
+
+                </div>
+
+            </div>
+
+          <div class="col-md-2"></div>
+
+      </div>
+
+</header>
+
+</html>

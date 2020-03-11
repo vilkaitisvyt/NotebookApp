@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<nav class="navbar navbar-expand navbar-dark navbar-custom fixed-top">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#" >Notebook</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link faa-pulse animated-hover" href="#" onclick="getRegistrationPage()" >Sign Up</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link faa-pulse animated" href="#" onclick="getLoginPage()" >Log In</a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<header id="header">
+
+    <form id='myFormId' class="form-signin" >        
+        <p>
+            <label class="sr-only" for="username">Username</label>
+            <input name="username" class="form-control" id="username" autofocus="" required="" type="text" placeholder="Username" spellcheck="false" maxlength="30" >
+        </p>        
+        <p>
+            <label class="sr-only" for="password">Password</label>
+            <input name="password" class="form-control" id="password" required="" type="password" placeholder="Password" maxlength="30" >
+        </p>
+        <ul id="form-message">
+
+        </ul>        
+        <button id='btn-submit' class="btn btn-block btn-dark btn-cstm" type="submit" onclick="submitLoginData()" >Log In</button>
+    </form>
+
+</header>
+
+</html>
