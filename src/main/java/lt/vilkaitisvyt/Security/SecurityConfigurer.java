@@ -43,8 +43,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 							.antMatchers("/register").permitAll()
 //							.antMatchers("/h2-console/**").permitAll()
 							.antMatchers("/css/**").permitAll()
-							.antMatchers("/img/**").permitAll()	
-//							.antMatchers("/favicon.ico").permitAll()
+							.antMatchers("/img/**").permitAll()
+							.antMatchers("/script/**").permitAll()
 							.anyRequest().authenticated()
 							.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
