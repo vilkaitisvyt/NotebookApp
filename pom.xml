@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>lt.vilkaitisvyt</groupId>
-	<artifactId>new_portfolio_project</artifactId>
+	<artifactId>NotebookApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>new_portfolio_project</name>
-	<description>Demo project for portfolio</description>
+	<name>NotebookApp</name>
+	<description>Demo project for a portfolio</description>
 
 	<properties>
 		<java.version>1.8</java.version>
