@@ -20,7 +20,7 @@ public class ViewResources {
 	private EntryService entryService;
 
 	
-	@GetMapping("")
+	@GetMapping
 	public String home() {
 		return "index";
 	}
