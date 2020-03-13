@@ -22,7 +22,7 @@ public class ViewResources {
 	
 	@GetMapping
 	public String home() {
-		return "LoginForm";
+		return "Index";
 	}
 	
 	@GetMapping("/entries")
