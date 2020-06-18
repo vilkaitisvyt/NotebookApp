@@ -1,29 +1,28 @@
 const modalForm = {
-    newEntry:null
+  newEntry: null,
 };
 
-const addNewEntry = () => {    
-    console.log("adding entry");
-    modalForm.newEntry = document.getElementById('newEntry');
-    let token = localStorage.getItem('currentUser');
-    let requestData = `newEntry=${modalForm.newEntry.value}`;
+const addNewEntry = () => {
+  console.log("adding entry");
+  modalForm.newEntry = document.getElementById("newEntry");
+  let token = localStorage.getItem("currentUser");
+  let requestData = `newEntry=${modalForm.newEntry.value}`;
 
-    let request = new XMLHttpRequest();
+  let request = new XMLHttpRequest();
 
-    request.open('post', '/entryNew');
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.setRequestHeader("Authorization", 'Bearer ' + token);
-    request.onload = () => {
-        if(request.status === 403) {
-            logout();
-        }
-        document.getElementById('holder').innerHTML = request.responseText;
-    };
+  request.open("post", "/entryNew");
+  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request.setRequestHeader("Authorization", "Bearer " + token);
+  request.onload = () => {
+    if (request.status === 403) {
+      logout();
+    }
+    document.getElementById("holder").innerHTML = request.responseText;
+  };
 
-    if(token) {
-        request.send(requestData);
-
-    } else {
-        getLoginPage();
-    }				
+  if (token) {
+    request.send(requestData);
+  } else {
+    getLoginPage();
+  }
 };

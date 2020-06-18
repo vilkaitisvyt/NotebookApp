@@ -1,202 +1,234 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:th="http://www.thymeleaf.org" >
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
 
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="css/font-awesome-animation.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-	<title>Index Page</title>
+  <body>
+    <div id="holder">
+      <nav class="navbar navbar-expand navbar-dark navbar-custom fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">Notebook</a>
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" >
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" >
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/font-awesome-animation.min.css">
-	<link rel="stylesheet" href="css/styles.css" >
-	
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-</head>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a
+                  class="nav-link faa-pulse animated-hover"
+                  href="#"
+                  onclick="getRegistrationPage()"
+                  >Sign Up</a
+                >
+              </li>
 
-<body>
+              <li class="nav-item">
+                <a
+                  class="nav-link faa-pulse animated-hover"
+                  href="#"
+                  onclick="getLoginPage()"
+                  >Log In</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-	<div id="holder">
+      <header id="indexHeader">
+        <h2 id="welcomeText" class="text-center"></h2>
 
-		<nav class="navbar navbar-expand navbar-dark navbar-custom fixed-top">
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-dark btn-cstm" onclick="getData()">
+            Continue
+          </button>
+        </div>
+      </header>
+    </div>
 
-			<div class="container">
+    <!-- Add New Modal -->
 
-			<a class="navbar-brand" href="#" >Notebook</a>
+    <div
+      class="modal fade"
+      id="viewModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i
+              type="button"
+              class="fa fa-window-close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"></span>
+            </i>
+          </div>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="modal-body">
+            <form id="modalForm">
+              <div class="input-group mb-3">
+                <input
+                  id="newEntry"
+                  type="text"
+                  class="form-control"
+                  placeholder="Add New Entry"
+                  aria-label="Add New Entry"
+                  aria-describedby="button-addon2"
+                  spellcheck="false"
+                  maxlength="200"
+                />
 
-				<span class="navbar-toggler-icon"></span>
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-dark btn-cstm"
+                    type="button"
+                    onclick="addNewEntry()"
+                    id="button-addon2"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-			</button>
+    <!-- Edit Modal -->
 
-			<div class="collapse navbar-collapse" id="navbarResponsive">
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i
+              type="button"
+              class="fa fa-window-close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"></span>
+            </i>
+          </div>
 
-				<ul class="navbar-nav ml-auto">
+          <div class="modal-body">
+            <form id="editModalForm">
+              <div class="input-group mb-3">
+                <input
+                  id="editEntry"
+                  type="text"
+                  class="form-control"
+                  placeholder="Edit Entry"
+                  aria-label="Edit Entry"
+                  aria-describedby="button-edit"
+                  spellcheck="false"
+                  maxlength="200"
+                />
 
-				<li class="nav-item">
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-dark btn-cstm"
+                    type="button"
+                    onclick="updateEntry()"
+                    id="button-edit"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-					<a class="nav-link faa-pulse animated-hover" href="#" onclick="getRegistrationPage()" >Sign Up</a>
+    <!-- Prevent default scripts -->
+    <script src="script/PreventDefaultScripts.js"></script>
 
-				</li>
+    <!-- Registration scripts -->
+    <script src="script/RegistrationScripts.js"></script>
 
-				<li class="nav-item">
+    <!-- Login/Logout scripts -->
+    <script src="script/LoginLogoutScripts.js"></script>
 
-					<a class="nav-link faa-pulse animated-hover" href="#" onclick="getLoginPage()" >Log In</a>
+    <!-- Update scripts -->
+    <script src="script/UpdateScripts.js"></script>
 
-				</li>
+    <!-- Delete scripts -->
+    <script src="script/DeleteScripts.js"></script>
 
-				</ul>
+    <!-- Add new modal scripts -->
+    <script src="script/AddNewModalScripts.js"></script>
 
-			</div>
+    <!-- Get data scripts -->
+    <script src="script/GetDataScripts.js"></script>
 
-			</div>
+    <!-- Jwt scripts -->
+    <script src="script/JwtScripts.js"></script>
 
-	  	</nav>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
-		<header id="indexHeader">		
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-			<h2 id="welcomeText" class="text-center"></h2>
-
-			<div class="d-flex justify-content-center">			
-
-				<button class="btn btn-dark btn-cstm" onclick="getData()" >Continue</button>
-
-			</div>		
-
-		</header>
-
-	</div>		
-
-		<!-- Add New Modal -->
-
-		<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-			<div class="modal-dialog modal-dialog-centered" role="document">
-		
-			  <div class="modal-content">
-		
-				<div class="modal-header">
-		
-				  <i type="button" class="fa fa-window-close" data-dismiss="modal" aria-label="Close">
-		
-					<span aria-hidden="true"></span>
-		
-				  </i>
-		
-				</div>
-		
-				<div class="modal-body">
-		
-					<form id="modalForm">						
-		
-						<div class="input-group mb-3">
-
-							<input id="newEntry" type="text" class="form-control" placeholder="Add New Entry" aria-label="Add New Entry" aria-describedby="button-addon2" spellcheck="false" maxlength="200" >
-
-							<div class="input-group-append">
-
-							  <button class="btn btn-dark btn-cstm" type="button" onclick="addNewEntry()" id="button-addon2" >Submit</button>
-
-							</div>
-
-						</div>
-		
-					</form>
-		
-				</div>
-		
-			  </div>
-		
-			</div>
-		
-		  </div>
-
-		  <!-- Edit Modal -->
-
-		<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-			<div class="modal-dialog modal-dialog-centered" role="document">
-		
-			  <div class="modal-content">
-		
-				<div class="modal-header">
-		
-				  <i type="button" class="fa fa-window-close" data-dismiss="modal" aria-label="Close">
-		
-					<span aria-hidden="true"></span>
-		
-				  </i>
-		
-				</div>
-		
-				<div class="modal-body">
-		
-					<form id="editModalForm">						
-		
-						<div class="input-group mb-3">
-
-							<input id="editEntry" type="text" class="form-control" placeholder="Edit Entry" aria-label="Edit Entry" aria-describedby="button-edit" spellcheck="false" maxlength="200" >
-
-							<div class="input-group-append">
-
-							  <button class="btn btn-dark btn-cstm" type="button" onclick="updateEntry()" id="button-edit" >Submit</button>
-
-							</div>
-
-						</div>
-		
-					</form>
-		
-				</div>
-		
-			  </div>
-		
-			</div>
-		
-		  </div>
-
-	<!-- Prevent default scripts -->
-	<script src="script/PreventDefaultScripts.js" ></script>
-	
-	<!-- Registration scripts -->
-	<script src="script/RegistrationScripts.js" ></script>
-
-	<!-- Login/Logout scripts -->
-    <script src="script/LoginLogoutScripts.js" ></script>
-
-	<!-- Update scripts -->
-	<script src="script/UpdateScripts.js" ></script>
-
-	<!-- Delete scripts -->
-	<script src="script/DeleteScripts.js" ></script>
-
-	<!-- Add new modal scripts -->
-	<script src="script/AddNewModalScripts.js" ></script>
-
-	<!-- Get data scripts -->
-	<script src="script/GetDataScripts.js" ></script>
-
-	<!-- Jwt scripts -->
-	<script src="script/JwtScripts.js" ></script>
-
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-</body>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
 </html>
